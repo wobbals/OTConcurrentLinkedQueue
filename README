@@ -1,0 +1,8 @@
+So, I'm a java developer and love love love ConcurrentLinkedQueue. 
+This class does about the same thing, using OSAtomic.h and Objective-C objects.
+This is version 1 of the Michael & Scott paper; a non-blocking (wait-free) linked queue.
+I didn't implement the size and iteration features you might
+expect from a java collection, mostly because they don't run very safely in
+multi-threaded environments anyway. Even the peek and isEmpty operations can lie to you.
+
+see also - http://www.cs.rochester.edu/u/michael/PODC96.html
