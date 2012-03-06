@@ -70,11 +70,11 @@
                     break;
                 }
             } else {
-                OSAtomicCompareAndSwapPtr(tail, next, (void*)&_tail);
+                OSAtomicCompareAndSwapPtr(tail, next, (void*)&(self->_tail));
             }
         }
     }
-    OSAtomicCompareAndSwapPtr(tail, node, (void*)&_tail);
+    OSAtomicCompareAndSwapPtr(tail, node, (void*)&(self->_tail));
     return YES;
 }
 
@@ -94,10 +94,10 @@
                 if (next == nil) {
                     return nil;
                 }
-                OSAtomicCompareAndSwapPtr(tail, next, (void*)&_tail);
-            } else {
-                object = next->value;
-                if (OSAtomicCompareAndSwapPtr(head, next, (void*)&_head)) {
+                OSAtomicCompareAndSwapPtr(tail, next, (void*)&(self->_tail));
+            } else if (next != nil) {
+                if (OSAtomicCompareAndSwapPtr(head, next, (void*)&(self->_head))) {
+                    object = next->value;
                     break;
                 }
             }

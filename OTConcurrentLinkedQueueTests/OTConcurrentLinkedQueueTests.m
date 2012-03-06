@@ -26,7 +26,7 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testSerialFillUnfill
 {
     int thingsIn = 10000000;
     OTConcurrentLinkedQueue* queue = [[OTConcurrentLinkedQueue alloc] init];
@@ -57,5 +57,55 @@
         STAssertEquals(thingsOut, thingsIn, @"Number of things");
     });
 }
+
+- (void)randomFillUnfill:(double)loadFactor {
+    dispatch_queue_t dispatch_queue = dispatch_queue_create("test-random-fill-unfill-queue", DISPATCH_QUEUE_CONCURRENT);
+    int operations = 10000000;
+    OTConcurrentLinkedQueue* queue = [[OTConcurrentLinkedQueue alloc] init];
+    __block int thingsIn = 0;
+    __block int thingsOut = 0;
+    srand(time(NULL));
+    for (int i = 0; i < operations; i++) {
+        dispatch_async(dispatch_queue, ^{
+            int count = i;
+            if (rand() >= (RAND_MAX * loadFactor) && ![queue isEmpty]) {
+                if ([queue poll] != nil) {
+                    OSAtomicIncrement32Barrier((int*)&thingsOut);
+                }
+            } else {
+                [queue offer:[NSString stringWithFormat:@"%d", i]];
+                OSAtomicIncrement32Barrier((int*)&thingsIn);
+            }
+            if (count % (operations / 10) == 0) {
+                NSLog(@"%0.f%% complete (%d of %d)", 100*(double)count / (double)operations, count, operations);
+            }
+        });
+    }
+    dispatch_barrier_sync(dispatch_queue, ^{
+        NSLog(@"Drain dispatch queue");
+        NSLog(@"Estimated remaining elements = %d", thingsIn - thingsOut);
+    });
+    while (![queue isEmpty]) {
+        dispatch_async(dispatch_queue, ^{
+            if ([queue poll] != nil) {
+                OSAtomicIncrement32Barrier((int*)&thingsOut);
+            }
+        });
+    }
+    NSLog(@"done! out=%d, in=%d", thingsOut, thingsIn);
+    STAssertEquals(thingsOut, thingsIn, @"Number of things");
+    dispatch_release(dispatch_queue);
+}
+
+
+- (void)testRandomFillUnfill {
+    NSLog(@"Starting next test: random fill c=0.25");
+    [self randomFillUnfill:0.25];
+    NSLog(@"Starting next test: random fill c=0.50");
+    [self randomFillUnfill:0.50];
+    NSLog(@"Starting next test: random fill c=0.75");
+    [self randomFillUnfill:0.75];
+}
+
 
 @end
