@@ -6,3 +6,7 @@ expect from a java collection, mostly because they don't run very safely in
 multi-threaded environments anyway. Even the peek and isEmpty operations can lie to you.
 
 see also - http://www.cs.rochester.edu/u/michael/PODC96.html
+
+
+UPDATE: I did some more rigorous testing and concluded this class is not as thread safe as I hoped.
+I'll push a fix as soon as I figure out what I did wrong. 
