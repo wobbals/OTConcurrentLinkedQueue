@@ -44,9 +44,64 @@
         usleep(1000000); //sleep to drain the global dispatch queue
         NSLog(@"done! out=%d, in=%d, overshot=%d", thingsOut, numberOfThings, emptyPollCount);
         self.window.backgroundColor = [UIColor greenColor];
+        
+        [self testRandomFillUnfill];
     });
 }
 
+- (void)randomFillUnfill:(double)loadFactor {
+    //First, randomly fill/unfill the queue, given some probability of poll/offer
+    dispatch_queue_t dispatch_queue = dispatch_queue_create("test-random-fill-unfill-queue", DISPATCH_QUEUE_CONCURRENT);
+    int operations = 10000000;
+    OTConcurrentLinkedQueue* queue = [[OTConcurrentLinkedQueue alloc] init];
+    __block int thingsIn = 0;
+    __block int thingsOut = 0;
+    srand(time(NULL));
+    for (int i = 0; i < operations; i++) {
+        dispatch_async(dispatch_queue, ^{
+            int count = i;
+            if (rand() >= (RAND_MAX * loadFactor) && ![queue isEmpty]) {
+                if ([queue poll] != nil) {
+                    OSAtomicIncrement32Barrier((int*)&thingsOut);
+                }
+            } else {
+                [queue offer:[NSString stringWithFormat:@"%d", i]];
+                OSAtomicIncrement32Barrier((int*)&thingsIn);
+            }
+            if (count % (operations / 10) == 0) {
+                NSLog(@"%0.f%% complete (%d of %d)", 100*(double)count / (double)operations, count, operations);
+            }
+        });
+    }
+    //Drain the dispatch queue of all async poll/offers
+    dispatch_barrier_sync(dispatch_queue, ^{
+        NSLog(@"Drain dispatch queue");
+        NSLog(@"Estimated remaining elements = %d", thingsIn - thingsOut);
+    });
+    //Dispatch a bunch of polls until queue reports empty on main thread
+    while (![queue isEmpty]) {
+        dispatch_async(dispatch_queue, ^{
+            if ([queue poll] != nil) {
+                OSAtomicIncrement32Barrier((int*)&thingsOut);
+            }
+        });
+    }
+    //Finally, drain the dispatch queue once again and take score
+    dispatch_barrier_sync(dispatch_queue, ^{
+        NSLog(@"done! out=%d, in=%d", thingsOut, thingsIn);
+    });
+    dispatch_release(dispatch_queue);
+}
+
+
+- (void)testRandomFillUnfill {
+    NSLog(@"Starting next test: random fill c=0.25");
+    [self randomFillUnfill:0.25];
+    NSLog(@"Starting next test: random fill c=0.50");
+    [self randomFillUnfill:0.50];
+    NSLog(@"Starting next test: random fill c=0.75");
+    [self randomFillUnfill:0.75];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

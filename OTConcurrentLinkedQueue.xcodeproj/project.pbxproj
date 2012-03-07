@@ -522,7 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/OTConcurrentLinkedQueue.dst;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTConcurrentLinkedQueue/OTConcurrentLinkedQueue-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
@@ -535,7 +535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/OTConcurrentLinkedQueue.dst;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTConcurrentLinkedQueue/OTConcurrentLinkedQueue-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";

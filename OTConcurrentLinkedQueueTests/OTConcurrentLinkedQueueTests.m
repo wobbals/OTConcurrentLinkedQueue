@@ -68,6 +68,7 @@
     srand(time(NULL));
     for (int i = 0; i < operations; i++) {
         dispatch_async(dispatch_queue, ^{
+            OSMemoryBarrier();
             int count = i;
             if (rand() >= (RAND_MAX * loadFactor) && ![queue isEmpty]) {
                 if ([queue poll] != nil) {
@@ -88,16 +89,19 @@
         NSLog(@"Estimated remaining elements = %d", thingsIn - thingsOut);
     });
     //Dispatch a bunch of polls until queue reports empty on main thread
-    while (![queue isEmpty]) {
-        dispatch_async(dispatch_queue, ^{
+    dispatch_async(dispatch_queue, ^{
+        while (![queue isEmpty]) {
             if ([queue poll] != nil) {
                 OSAtomicIncrement32Barrier((int*)&thingsOut);
             }
-        });
-    }
+        }
+    });
     //Finally, drain the dispatch queue once again and take score
     dispatch_barrier_sync(dispatch_queue, ^{
         STAssertEquals(thingsOut, thingsIn, @"Number of things");
+        if (thingsOut != thingsIn) {
+            NSLog(@"Oddly enough, queue says it's got %@", [queue peek]);
+        }
         NSLog(@"done! out=%d, in=%d", thingsOut, thingsIn);
     });
     dispatch_release(dispatch_queue);

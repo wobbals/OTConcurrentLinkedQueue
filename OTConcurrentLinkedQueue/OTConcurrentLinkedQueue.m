@@ -23,27 +23,29 @@ typedef union nodeptr pointer_t;
 
 @interface Node : NSObject {
 @public
-    id value;
-    pointer_t next;
+    volatile id value;
+    volatile pointer_t next;
 }
 @end
 
 @implementation Node
 @end
 
-bool cas(pointer_t* value, pointer_t old, volatile Node* new);
+bool cas(volatile pointer_t* volatile value, volatile pointer_t old, volatile Node* volatile new);
 
-bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
+bool cas(volatile pointer_t* volatile value, volatile pointer_t old, volatile Node* volatile new) {
+    OSMemoryBarrier();
     pointer_t nodePtr;
     nodePtr.stuff.ptr = new;
     nodePtr.stuff.count = old.stuff.count+1;
+    OSMemoryBarrier();
     return OSAtomicCompareAndSwap64Barrier(old.val, nodePtr.val, (volatile int64_t*)value);
 }
 
 
 @implementation OTConcurrentLinkedQueue {
-    pointer_t _head;
-    pointer_t _tail;
+    volatile pointer_t _head;
+    volatile pointer_t _tail;
 }
 
 + (Node*)new_node {
@@ -88,9 +90,11 @@ bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
     nextPtr.val = 0;
     node->next = nextPtr;
     pointer_t tail;
+    OSMemoryBarrier();
     while (true) {
         tail = self->_tail;
         pointer_t next = tail.stuff.ptr->next;
+        OSMemoryBarrier();
         if (tail.val == _tail.val) {
             if (next.stuff.ptr == 0) {
                 if (cas(&tail.stuff.ptr->next, next, node)) {
@@ -102,15 +106,18 @@ bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
         }
     }
     cas(&_tail, tail, node);
+    OSMemoryBarrier();
     return YES;
 }
 
 - (id)peek {
     pointer_t head;
+    OSMemoryBarrier();
     while (true) {
         head = _head;
         pointer_t tail = _tail;
         pointer_t next = head.stuff.ptr->next;
+        OSMemoryBarrier();
         if (head.val == _head.val) {
             if (head.stuff.ptr == tail.stuff.ptr) {
                 if (next.stuff.ptr == 0) {
@@ -118,6 +125,7 @@ bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
                 }
                 cas(&_tail, tail, next.stuff.ptr);
             } else {
+                OSMemoryBarrier();
                 return next.stuff.ptr->value;
             }
         }
@@ -127,10 +135,12 @@ bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
 - (id)poll {
     id object = nil;
     pointer_t head;
+    OSMemoryBarrier();
     while (true) {
         head = _head;
         pointer_t tail = _tail;
         pointer_t next = head.stuff.ptr->next;
+        OSMemoryBarrier();
         if (head.val == _head.val) {
             if (head.stuff.ptr == tail.stuff.ptr) {
                 if (next.stuff.ptr == 0) {
@@ -147,6 +157,7 @@ bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
     }
     [head.stuff.ptr release];
     [object autorelease];
+    OSMemoryBarrier();
     return object;
 }
 
