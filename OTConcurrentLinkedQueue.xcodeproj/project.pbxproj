@@ -522,6 +522,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/OTConcurrentLinkedQueue.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTConcurrentLinkedQueue/OTConcurrentLinkedQueue-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
@@ -534,6 +535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				DSTROOT = /tmp/OTConcurrentLinkedQueue.dst;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OTConcurrentLinkedQueue/OTConcurrentLinkedQueue-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
@@ -664,6 +666,7 @@
 				D46D3F7714FC43AA00DEDEDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D46D3F7814FC43AA00DEDEDF /* Build configuration list for PBXNativeTarget "OTConcurrentLinkedQueueTests" */ = {
 			isa = XCConfigurationList;
@@ -672,6 +675,7 @@
 				D46D3F7A14FC43AA00DEDEDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D46D3FA514FD60B900DEDEDF /* Build configuration list for PBXNativeTarget "OTConcurrentLinkedQueueTestApp" */ = {
 			isa = XCConfigurationList;
@@ -680,6 +684,7 @@
 				D46D3FA714FD60B900DEDEDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D46D3FA814FD60B900DEDEDF /* Build configuration list for PBXNativeTarget "OTConcurrentLinkedQueueTestAppTests" */ = {
 			isa = XCConfigurationList;
@@ -688,6 +693,7 @@
 				D46D3FAA14FD60B900DEDEDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

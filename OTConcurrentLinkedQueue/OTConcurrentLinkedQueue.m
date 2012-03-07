@@ -13,8 +13,8 @@
 
 union nodeptr {
 struct {
-    Node* ptr;
-    int32_t count;
+    volatile Node* ptr;
+    volatile int32_t count;
 } stuff;
 volatile int64_t val;
 };
@@ -31,9 +31,9 @@ typedef union nodeptr pointer_t;
 @implementation Node
 @end
 
-bool cas(pointer_t* value, pointer_t old, Node* new);
+bool cas(pointer_t* value, pointer_t old, volatile Node* new);
 
-bool cas(pointer_t* value, pointer_t old, Node* new) {
+bool cas(pointer_t* value, pointer_t old, volatile Node* new) {
     pointer_t nodePtr;
     nodePtr.stuff.ptr = new;
     nodePtr.stuff.count = old.stuff.count+1;
@@ -44,13 +44,12 @@ bool cas(pointer_t* value, pointer_t old, Node* new) {
 @implementation OTConcurrentLinkedQueue {
     pointer_t _head;
     pointer_t _tail;
-    int32_t nodeCounter;
 }
 
 + (Node*)new_node {
     Node* myNode = [[Node alloc] init];
-    //myNode->next = malloc(sizeof(pointer_t));
     myNode->value = nil;
+    myNode->next.val = 0;
     return myNode;
 }
 
@@ -58,10 +57,9 @@ bool cas(pointer_t* value, pointer_t old, Node* new) {
 {
     self = [super init];
     if (self) {
-        nodeCounter = 0;
         pointer_t dummy;
         dummy.stuff.ptr = [OTConcurrentLinkedQueue new_node];
-        dummy.stuff.count = nodeCounter++;
+        dummy.stuff.count = 0;
         _head = dummy;
         _tail = dummy;
     }
@@ -71,7 +69,7 @@ bool cas(pointer_t* value, pointer_t old, Node* new) {
 
 - (void)dealloc {
     while (![self isEmpty]) {
-        [[self poll] release];
+        [[self poll] autorelease];
     }
     [_head.stuff.ptr release];
     _head.val = 0;
@@ -87,14 +85,10 @@ bool cas(pointer_t* value, pointer_t old, Node* new) {
     Node* node = [OTConcurrentLinkedQueue new_node];
     node->value = [object retain];
     pointer_t nextPtr;
-    nextPtr.stuff.ptr = 0;
-    OSAtomicIncrement32Barrier(&nodeCounter);
-    nextPtr.stuff.count = nodeCounter;
+    nextPtr.val = 0;
     node->next = nextPtr;
     pointer_t tail;
-    int iterations = 0;
     while (true) {
-        iterations++;
         tail = self->_tail;
         pointer_t next = tail.stuff.ptr->next;
         if (tail.val == _tail.val) {
@@ -113,9 +107,7 @@ bool cas(pointer_t* value, pointer_t old, Node* new) {
 
 - (id)peek {
     pointer_t head;
-    int iterations = 0;
     while (true) {
-        iterations++;
         head = _head;
         pointer_t tail = _tail;
         pointer_t next = head.stuff.ptr->next;
@@ -135,9 +127,7 @@ bool cas(pointer_t* value, pointer_t old, Node* new) {
 - (id)poll {
     id object = nil;
     pointer_t head;
-    int iterations = 0;
     while (true) {
-        iterations++;
         head = _head;
         pointer_t tail = _tail;
         pointer_t next = head.stuff.ptr->next;
