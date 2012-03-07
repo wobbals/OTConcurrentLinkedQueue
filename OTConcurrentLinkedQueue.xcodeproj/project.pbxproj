@@ -21,11 +21,6 @@
 		D46D3F8A14FD60B900DEDEDF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46D3F8814FD60B900DEDEDF /* InfoPlist.strings */; };
 		D46D3F8C14FD60B900DEDEDF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D46D3F8B14FD60B900DEDEDF /* main.m */; };
 		D46D3F9014FD60B900DEDEDF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D46D3F8F14FD60B900DEDEDF /* AppDelegate.m */; };
-		D46D3F9714FD60B900DEDEDF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46D3F6214FC43AA00DEDEDF /* SenTestingKit.framework */; };
-		D46D3F9814FD60B900DEDEDF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46D3F6414FC43AA00DEDEDF /* UIKit.framework */; };
-		D46D3F9914FD60B900DEDEDF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46D3F5414FC43AA00DEDEDF /* Foundation.framework */; };
-		D46D3FA114FD60B900DEDEDF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D46D3F9F14FD60B900DEDEDF /* InfoPlist.strings */; };
-		D46D3FA414FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D46D3FA314FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.m */; };
 		D46D3FAC14FD62BF00DEDEDF /* libOTConcurrentLinkedQueue.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D46D3F5114FC43AA00DEDEDF /* libOTConcurrentLinkedQueue.a */; };
 /* End PBXBuildFile section */
 
@@ -36,13 +31,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D46D3F5014FC43AA00DEDEDF;
 			remoteInfo = OTConcurrentLinkedQueue;
-		};
-		D46D3F9A14FD60B900DEDEDF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D46D3F4814FC43AA00DEDEDF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D46D3F7E14FD60B900DEDEDF;
-			remoteInfo = OTConcurrentLinkedQueueTestApp;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -67,11 +55,6 @@
 		D46D3F8D14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OTConcurrentLinkedQueueTestApp-Prefix.pch"; sourceTree = "<group>"; };
 		D46D3F8E14FD60B900DEDEDF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D46D3F8F14FD60B900DEDEDF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D46D3F9614FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OTConcurrentLinkedQueueTestAppTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D46D3F9E14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OTConcurrentLinkedQueueTestAppTests-Info.plist"; sourceTree = "<group>"; };
-		D46D3FA014FD60B900DEDEDF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		D46D3FA214FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OTConcurrentLinkedQueueTestAppTests.h; sourceTree = "<group>"; };
-		D46D3FA314FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OTConcurrentLinkedQueueTestAppTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,16 +88,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D46D3F9214FD60B900DEDEDF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D46D3F9714FD60B900DEDEDF /* SenTestingKit.framework in Frameworks */,
-				D46D3F9814FD60B900DEDEDF /* UIKit.framework in Frameworks */,
-				D46D3F9914FD60B900DEDEDF /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -124,7 +97,6 @@
 				D46D3F5614FC43AA00DEDEDF /* OTConcurrentLinkedQueue */,
 				D46D3F6A14FC43AA00DEDEDF /* OTConcurrentLinkedQueueTests */,
 				D46D3F8514FD60B900DEDEDF /* OTConcurrentLinkedQueueTestApp */,
-				D46D3F9C14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests */,
 				D46D3F5314FC43AA00DEDEDF /* Frameworks */,
 				D46D3F5214FC43AA00DEDEDF /* Products */,
 			);
@@ -136,7 +108,6 @@
 				D46D3F5114FC43AA00DEDEDF /* libOTConcurrentLinkedQueue.a */,
 				D46D3F6114FC43AA00DEDEDF /* OTConcurrentLinkedQueueTests.octest */,
 				D46D3F7F14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestApp.app */,
-				D46D3F9614FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,25 +181,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D46D3F9C14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests */ = {
-			isa = PBXGroup;
-			children = (
-				D46D3FA214FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.h */,
-				D46D3FA314FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.m */,
-				D46D3F9D14FD60B900DEDEDF /* Supporting Files */,
-			);
-			path = OTConcurrentLinkedQueueTestAppTests;
-			sourceTree = "<group>";
-		};
-		D46D3F9D14FD60B900DEDEDF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				D46D3F9E14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests-Info.plist */,
-				D46D3F9F14FD60B900DEDEDF /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -295,25 +247,6 @@
 			productReference = D46D3F7F14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D46D3F9514FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D46D3FA814FD60B900DEDEDF /* Build configuration list for PBXNativeTarget "OTConcurrentLinkedQueueTestAppTests" */;
-			buildPhases = (
-				D46D3F9114FD60B900DEDEDF /* Sources */,
-				D46D3F9214FD60B900DEDEDF /* Frameworks */,
-				D46D3F9314FD60B900DEDEDF /* Resources */,
-				D46D3F9414FD60B900DEDEDF /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D46D3F9B14FD60B900DEDEDF /* PBXTargetDependency */,
-			);
-			name = OTConcurrentLinkedQueueTestAppTests;
-			productName = OTConcurrentLinkedQueueTestAppTests;
-			productReference = D46D3F9614FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -338,7 +271,6 @@
 				D46D3F5014FC43AA00DEDEDF /* OTConcurrentLinkedQueue */,
 				D46D3F6014FC43AA00DEDEDF /* OTConcurrentLinkedQueueTests */,
 				D46D3F7E14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestApp */,
-				D46D3F9514FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -360,31 +292,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D46D3F9314FD60B900DEDEDF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D46D3FA114FD60B900DEDEDF /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		D46D3F5F14FC43AA00DEDEDF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		D46D3F9414FD60B900DEDEDF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -425,14 +336,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D46D3F9114FD60B900DEDEDF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D46D3FA414FD60B900DEDEDF /* OTConcurrentLinkedQueueTestAppTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -440,11 +343,6 @@
 			isa = PBXTargetDependency;
 			target = D46D3F5014FC43AA00DEDEDF /* OTConcurrentLinkedQueue */;
 			targetProxy = D46D3F6714FC43AA00DEDEDF /* PBXContainerItemProxy */;
-		};
-		D46D3F9B14FD60B900DEDEDF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D46D3F7E14FD60B900DEDEDF /* OTConcurrentLinkedQueueTestApp */;
-			targetProxy = D46D3F9A14FD60B900DEDEDF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -461,14 +359,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				D46D3F8914FD60B900DEDEDF /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		D46D3F9F14FD60B900DEDEDF /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D46D3FA014FD60B900DEDEDF /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -611,42 +501,6 @@
 			};
 			name = Release;
 		};
-		D46D3FA914FD60B900DEDEDF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OTConcurrentLinkedQueueTestApp.app/OTConcurrentLinkedQueueTestApp";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OTConcurrentLinkedQueueTestApp/OTConcurrentLinkedQueueTestApp-Prefix.pch";
-				INFOPLIST_FILE = "OTConcurrentLinkedQueueTestAppTests/OTConcurrentLinkedQueueTestAppTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		D46D3FAA14FD60B900DEDEDF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/OTConcurrentLinkedQueueTestApp.app/OTConcurrentLinkedQueueTestApp";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "OTConcurrentLinkedQueueTestApp/OTConcurrentLinkedQueueTestApp-Prefix.pch";
-				INFOPLIST_FILE = "OTConcurrentLinkedQueueTestAppTests/OTConcurrentLinkedQueueTestAppTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -682,15 +536,6 @@
 			buildConfigurations = (
 				D46D3FA614FD60B900DEDEDF /* Debug */,
 				D46D3FA714FD60B900DEDEDF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D46D3FA814FD60B900DEDEDF /* Build configuration list for PBXNativeTarget "OTConcurrentLinkedQueueTestAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D46D3FA914FD60B900DEDEDF /* Debug */,
-				D46D3FAA14FD60B900DEDEDF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

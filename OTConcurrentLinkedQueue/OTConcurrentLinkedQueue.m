@@ -13,8 +13,8 @@
 
 union nodeptr {
 struct {
-    volatile Node* ptr;
-    volatile int32_t count;
+    Node* ptr;
+    int32_t count;
 } stuff;
 volatile int64_t val;
 };
@@ -23,17 +23,17 @@ typedef union nodeptr pointer_t;
 
 @interface Node : NSObject {
 @public
-    volatile id value;
-    volatile pointer_t next;
+    id value;
+    pointer_t next;
 }
 @end
 
 @implementation Node
 @end
 
-bool cas(volatile pointer_t* volatile value, volatile pointer_t old, volatile Node* volatile new);
+bool cas(pointer_t* value, pointer_t old, Node* new);
 
-bool cas(volatile pointer_t* volatile value, volatile pointer_t old, volatile Node* volatile new) {
+bool cas(pointer_t* value, pointer_t old, Node* new) {
     OSMemoryBarrier();
     pointer_t nodePtr;
     nodePtr.stuff.ptr = new;
@@ -44,8 +44,8 @@ bool cas(volatile pointer_t* volatile value, volatile pointer_t old, volatile No
 
 
 @implementation OTConcurrentLinkedQueue {
-    volatile pointer_t _head;
-    volatile pointer_t _tail;
+    pointer_t _head;
+    pointer_t _tail;
 }
 
 + (Node*)new_node {

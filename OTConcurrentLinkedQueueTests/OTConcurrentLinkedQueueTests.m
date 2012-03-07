@@ -67,8 +67,8 @@
     __block int thingsOut = 0;
     srand(time(NULL));
     for (int i = 0; i < operations; i++) {
+        OSMemoryBarrier();
         dispatch_async(dispatch_queue, ^{
-            OSMemoryBarrier();
             int count = i;
             if (rand() >= (RAND_MAX * loadFactor) && ![queue isEmpty]) {
                 if ([queue poll] != nil) {
@@ -90,10 +90,8 @@
     });
     //Dispatch a bunch of polls until queue reports empty on main thread
     dispatch_async(dispatch_queue, ^{
-        while (![queue isEmpty]) {
-            if ([queue poll] != nil) {
-                OSAtomicIncrement32Barrier((int*)&thingsOut);
-            }
+        while ([queue poll] != nil) {
+            OSAtomicIncrement32Barrier((int*)&thingsOut);
         }
     });
     //Finally, drain the dispatch queue once again and take score
