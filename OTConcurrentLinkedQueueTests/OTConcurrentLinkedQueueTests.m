@@ -53,12 +53,13 @@
             });
         }
         usleep(1000000); //sleep to drain the global queue
-        NSLog(@"done! out=%d, in=%d, overshot=%d", thingsOut, thingsIn, emptyPollCount);
         STAssertEquals(thingsOut, thingsIn, @"Number of things");
+        NSLog(@"done! out=%d, in=%d, overshot=%d", thingsOut, thingsIn, emptyPollCount);
     });
 }
 
 - (void)randomFillUnfill:(double)loadFactor {
+    //First, randomly fill/unfill the queue, given some probability of poll/offer
     dispatch_queue_t dispatch_queue = dispatch_queue_create("test-random-fill-unfill-queue", DISPATCH_QUEUE_CONCURRENT);
     int operations = 10000000;
     OTConcurrentLinkedQueue* queue = [[OTConcurrentLinkedQueue alloc] init];
@@ -81,10 +82,12 @@
             }
         });
     }
+    //Drain the dispatch queue of all async poll/offers
     dispatch_barrier_sync(dispatch_queue, ^{
         NSLog(@"Drain dispatch queue");
         NSLog(@"Estimated remaining elements = %d", thingsIn - thingsOut);
     });
+    //Dispatch a bunch of polls until queue reports empty on main thread
     while (![queue isEmpty]) {
         dispatch_async(dispatch_queue, ^{
             if ([queue poll] != nil) {
@@ -92,8 +95,11 @@
             }
         });
     }
-    NSLog(@"done! out=%d, in=%d", thingsOut, thingsIn);
-    STAssertEquals(thingsOut, thingsIn, @"Number of things");
+    //Finally, drain the dispatch queue once again and take score
+    dispatch_barrier_sync(dispatch_queue, ^{
+        STAssertEquals(thingsOut, thingsIn, @"Number of things");
+        NSLog(@"done! out=%d, in=%d", thingsOut, thingsIn);
+    });
     dispatch_release(dispatch_queue);
 }
 
